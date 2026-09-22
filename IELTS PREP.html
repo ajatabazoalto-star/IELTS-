@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Health Vocabulary — Collins Practice</title>
+<style>
+  :root{
+    --navy:#0b132b;
+    --navy2:#1c2541;
+    --ielts-red:#d90429;
+    --blue-accent:#3a86ff;
+    --paper:#f8fafc;
+    --card:#ffffff;
+    --ink:#0b132b;
+    --muted:#64748b;
+    --radius:16px;
+    --shadow:0 8px 24px rgba(11,19,43,0.08);
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);}
+  body{min-height:100vh;padding-bottom:60px;}
+
+  header.topbar{
+    background:linear-gradient(135deg,var(--navy) 0%, var(--navy2) 100%);
+    color:#fff;padding:18px;position:sticky;top:0;z-index:50;
+    box-shadow:0 4px 18px rgba(0,0,0,.2);
+  }
+  .topbar-inner{max-width:1000px;margin:0 auto;}
+  .badge{
+    display:inline-block;background:var(--ielts-red);color:#fff;font-size:11px;font-weight:800;
+    letter-spacing:1px;padding:5px 12px;border-radius:20px;text-transform:uppercase;margin-bottom:8px;
+  }
+  header.topbar h1{margin:0 0 4px;font-size:clamp(18px,3.6vw,24px);}
+  header.topbar p{margin:0;color:#94a3b8;font-size:13px;}
+
+  nav.tabs{
+    display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;
+  }
+  nav.tabs button{
+    flex:1 1 140px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+    color:#e2e8f0;padding:10px 8px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;
+    transition:.2s;text-align:center;
+  }
+  nav.tabs button.active{background:var(--ielts-red);border-color:var(--ielts-red);color:#fff;}
+  nav.tabs button:hover:not(.active){background:rgba(255,255,255,0.16);}
+
+  main{max-width:1000px;margin:0 auto;padding:26px 18px;}
+
+  .section{display:none;animation:fadeIn .35s ease;}
+  .section.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .section-title{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+  .section-title .bar{width:5px;height:26px;background:var(--ielts-red);border-radius:3px;}
+  .section-title h2{margin:0;font-size:clamp(18px,3vw,23px);}
+  .section-sub{color:var(--muted);margin:0 0 22px;font-size:14px;max-width:760px;}
+
+  .speak-btn{
+    background:var(--blue-accent);border:none;color:#fff;width:38px;height:38px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;transition:.15s;
+    flex-shrink:0;
+  }
+  .speak-btn:hover{background:var(--navy);transform:scale(1.05);}
+  .speak-btn.small{width:30px;height:30px;font-size:13px;}
+
+  /* CARDS DE VOCABULARIO */
+  .vocab-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;
+  }
+  .vocab-card{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:20px;border-left:5px solid var(--ielts-red);transition:.2s;
+  }
+  .vocab-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(11,19,43,0.12);}
+  .vocab-card h4{
+    margin:0 0 10px;color:var(--navy);font-size:18px;display:flex;align-items:center;
+    justify-content:space-between;gap:8px;
+  }
+  .vocab-card .tag{
+    display:inline-block;font-size:10px;background:#e0e7ff;color:var(--blue-accent);
+    padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:.5px;margin-bottom:8px;
+  }
+  .vocab-card .def{font-size:14px;color:var(--ink);line-height:1.5;margin:0 0 10px;}
+  .vocab-card .example{
+    font-style:italic;color:var(--blue-accent);font-size:13px;display:block;
+    padding-left:10px;border-left:3px solid var(--blue-accent);
+  }
+
+  /* EJERCICIOS */
+  .quiz-card{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:24px;margin-bottom:16px;
+  }
+  .quiz-num{
+    font-size:11px;font-weight:800;color:var(--ielts-red);letter-spacing:1px;margin-bottom:6px;
+  }
+  .quiz-q{font-size:16px;font-weight:700;margin:0 0 14px;line-height:1.5;}
+  .quiz-q .blank{
+    background:#fff3cd;padding:2px 8px;border-radius:4px;border-bottom:2px solid #f59e0b;
+    font-weight:800;
+  }
+  .fb-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
+  .fb-choice{
+    background:#f1f5f9;border:2px solid #e2e8f0;border-radius:10px;padding:12px;
+    font-weight:700;font-size:14px;cursor:pointer;text-align:center;transition:.15s;
+  }
+  .fb-choice:hover{border-color:var(--blue-accent);}
+  .fb-choice.correct{background:#dcfce7;border-color:#22c55e;color:#15803d;}
+  .fb-choice.wrong{background:#fee2e2;border-color:var(--ielts-red);color:var(--ielts-red);}
+  .feedback{margin-top:12px;font-weight:700;min-height:20px;font-size:14px;}
+
+  /* SPEAKING */
+  .cue-card{
+    background:#fffbe0;border:2px dashed #f59e0b;padding:20px;border-radius:12px;
+    text-align:left;margin-bottom:20px;
+  }
+  .cue-card h4{margin:0 0 6px;color:var(--navy);font-size:16px;}
+  .cue-card ul{margin:8px 0 0 20px;padding:0;}
+  .cue-card li{margin-bottom:4px;font-weight:600;color:var(--navy);font-size:14px;}
+
+  .mic-btn{
+    width:80px;height:80px;border-radius:50%;background:var(--ielts-red);color:#fff;border:none;
+    font-size:32px;cursor:pointer;box-shadow:0 6px 18px rgba(217,4,41,.35);transition:.15s;
+    margin:16px auto;display:flex;align-items:center;justify-content:center;
+  }
+  .mic-btn.listening{animation:pulse 1s infinite;background:#b91c1c;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(217,4,41,.6);}
+    70%{box-shadow:0 0 0 20px rgba(217,4,41,0);}
+    100%{box-shadow:0 0 0 0 rgba(217,4,41,0);}
+  }
+
+  .nav-btn{
+    background:var(--navy);color:#fff;border:none;padding:12px 22px;border-radius:10px;
+    font-weight:700;cursor:pointer;font-size:14px;transition:.15s;
+  }
+  .nav-btn:hover{background:var(--ielts-red);}
+  .nav-btn.ghost{background:#f1f5f9;color:var(--navy);}
+
+  footer.bottom{text-align:center;color:var(--muted);font-size:12px;padding:20px;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <span class="badge">Collins Vocabulary for IELTS · Page 11</span>
+    <h1>Health Problems &amp; Treatments</h1>
+    <p>Naming health problems · Verbs associated with treatment · Recognizing synonyms &amp; collocations</p>
+    <nav class="tabs" id="tabsNav">
+      <button class="tab-btn active" data-tab="1">📚 Vocabulary (13)</button>
+      <button class="tab-btn" data-tab="2">📝 Definitions Quiz</button>
+      <button class="tab-btn" data-tab="3">🔗 Collocations Quiz</button>
+      <button class="tab-btn" data-tab="4">🎙️ Speaking Practice</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- TAB 1: VOCABULARIO -->
+  <section class="section active" id="tab1">
+    <div class="section-title"><span class="bar"></span><h2>Health Vocabulary Bank</h2></div>
+    <p class="section-sub">Las 13 palabras clave de la página 11. Presiona 🔊 para escuchar la pronunciación británica y verás el ejemplo real del libro.</p>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </section>
+
+  <!-- TAB 2: DEFINICIONES -->
+  <section class="section" id="tab2">
+    <div class="section-title"><span class="bar"></span><h2>Quiz 1 — Match the Definition</h2></div>
+    <p class="section-sub">Lee la definición y elige la palabra correcta. Basado en las definiciones del Collins.</p>
+    <div id="defQuiz"></div>
+  </section>
+
+  <!-- TAB 3: COLOCACIONES -->
+  <section class="section" id="tab3">
+    <div class="section-title"><span class="bar"></span><h2>Quiz 2 — Collocations in Context</h2></div>
+    <p class="section-sub">Completa las oraciones con la colocación o sinónimo correcto, tal como aparece en el libro.</p>
+    <div id="collQuiz"></div>
+  </section>
+
+  <!-- TAB 4: SPEAKING -->
+  <section class="section" id="tab4">
+    <div class="section-title"><span class="bar"></span><h2>Speaking — Health Topic</h2></div>
+    <p class="section-sub">Practica Speaking Part 2 y 3 usando el vocabulario de salud que acabas de aprender.</p>
+
+    <div class="cue-card">
+      <h4>Part 2 Cue Card (2 minutes)</h4>
+      <p style="margin:6px 0;font-size:14px;color:var(--muted);">Describe a health problem you or someone you know experienced.</p>
+      <p style="margin:6px 0;font-size:13px;color:var(--muted);font-weight:700;">You should say:</p>
+      <ul>
+        <li>What the problem was and how it started</li>
+        <li>How it was diagnosed or treated</li>
+        <li>How long the recovery took</li>
+        <li>And explain how this experience changed your view on health.</li>
+      </ul>
+      <p style="margin-top:12px;font-size:13px;color:var(--navy);font-weight:700;">
+        💡 Try to use at least 5 of these words: <em>diagnose, administer, admit, discharge, examine, infection, disease, dehydration, stroke, obesity, allergy, addiction, cancer</em>.
+      </p>
+    </div>
+
+    <div style="text-align:center;">
+      <p style="color:var(--muted);font-size:13px;">Presiona el micrófono y comienza tu monólogo en inglés:</p>
+      <button class="mic-btn" id="micBtn">🎙️</button>
+      <div id="transcript" style="margin-top:12px;font-style:italic;color:var(--muted);min-height:24px;">&nbsp;</div>
+      <div id="feedback" style="margin-top:12px;font-weight:700;min-height:24px;"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bottom">🎓 Collins Vocabulary for IELTS · Health &amp; Treatment Module</footer>
+
+<script>
+/* ---------- SÍNTESIS DE VOZ ---------- */
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB';
+  u.rate = 0.88;
+  window.speechSynthesis.speak(u);
+}
+
+/* ---------- NAVEGACIÓN POR TABS ---------- */
+const tabBtns = document.querySelectorAll('.tab-btn');
+const sections = document.querySelectorAll('.section');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const n = btn.dataset.tab;
+    tabBtns.forEach(b => b.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab'+n).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+/* ---------- DATOS DE VOCABULARIO (COLLINS P.11) ---------- */
+const VOCAB = [
+  { word: "Addiction", tag: "NOUN", def: "The condition of taking harmful drugs and being unable to stop taking them.", ex: "long-term addiction to nicotine" },
+  { word: "Allergy", tag: "NOUN", def: "A medical condition that causes you to become ill or get a rash when you eat, smell, or touch something that does not normally make people ill.", ex: "Food allergies can result in an enormous variety of different symptoms." },
+  { word: "Cancer", tag: "NOUN", def: "A serious disease in which cells in a person's body increase rapidly in an uncontrolled way, producing abnormal growths.", ex: "a cancer research charity" },
+  { word: "Dehydration", tag: "UNCOUNTABLE NOUN", def: "You are suffering from dehydration if you lose too much water from your body.", ex: "Cholera causes severe dehydration." },
+  { word: "Disease", tag: "NOUN", def: "An illness that affects people, animals or plants, for example one which is caused by bacteria or infection.", ex: "the rapid spread of disease in the area" },
+  { word: "Infection", tag: "NOUN", def: "A disease caused by germs or bacteria.", ex: "Ear infections are common in pre-school children." },
+  { word: "Obesity", tag: "UNCOUNTABLE NOUN", def: "Someone suffering from obesity is extremely fat.", ex: "The excessive consumption of sugar leads to obesity." },
+  { word: "Stroke", tag: "NOUN", def: "If someone has a stroke, a blood vessel in their brain bursts or becomes blocked, which may kill them or make them unable to move one side of their body.", ex: "He had a minor stroke in 1987, which left him partly paralyzed." },
+  { word: "Administer", tag: "VERB", def: "If a doctor or nurse administers a drug, they give it to a patient.", ex: "Paramedics are trained to administer certain drugs." },
+  { word: "Admit", tag: "VERB", def: "If someone is admitted to hospital, they are taken into hospital for treatment and kept there until they are well enough to go home.", ex: "She was admitted to hospital with a soaring temperature." },
+  { word: "Diagnose", tag: "VERB", def: "If someone or something is diagnosed as having a particular illness or problem, their illness or problem is identified.", ex: "Almost a million people are diagnosed with colon cancer each year." },
+  { word: "Discharge", tag: "VERB", def: "When someone is discharged from hospital, they are officially allowed to leave, or told they must leave.", ex: "He has a broken nose but may be discharged today." },
+  { word: "Examine", tag: "VERB", def: "If a doctor examines you, he or she looks at your body, feels it, or does simple tests.", ex: "The doctor examined her carefully but found nothing wrong." }
+];
+
+/* ---------- RENDER VOCABULARIO ---------- */
+function renderVocab(){
+  const grid = document.getElementById('vocabGrid');
+  grid.innerHTML = VOCAB.map(v => `
+    <div class="vocab-card">
+      <span class="tag">${v.tag}</span>
+      <h4>${v.word}
+        <button class="speak-btn small" onclick="speak('${v.word}')" title="Listen">🔊</button>
+      </h4>
+      <p class="def">${v.def}</p>
+      <span class="example">"${v.ex}"</span>
+    </div>
+  `).join('');
+}
+
+/* ---------- QUIZ 1: DEFINICIONES ---------- */
+const DEF_QUIZ = [
+  { q: "The condition of taking harmful drugs and being unable to stop.", correct: "Addiction", opts: ["Addiction", "Allergy", "Infection", "Obesity"] },
+  { q: "A medical condition that makes you react badly when you eat, smell, or touch something.", correct: "Allergy", opts: ["Stroke", "Allergy", "Cancer", "Dehydration"] },
+  { q: "A serious disease in which cells increase rapidly in an uncontrolled way.", correct: "Cancer", opts: ["Infection", "Cancer", "Disease", "Addiction"] },
+  { q: "You suffer from this if you lose too much water from your body.", correct: "Dehydration", opts: ["Dehydration", "Obesity", "Allergy", "Stroke"] },
+  { q: "A disease caused by germs or bacteria.", correct: "Infection", opts: ["Cancer", "Infection", "Disease", "Obesity"] },
+  { q: "Someone suffering from this is extremely fat.", correct: "Obesity", opts: ["Dehydration", "Allergy", "Obesity", "Stroke"] },
+  { q: "A blood vessel in the brain bursts or becomes blocked.", correct: "Stroke", opts: ["Stroke", "Cancer", "Infection", "Addiction"] },
+  { q: "If a doctor _______ a drug, they give it to a patient.", correct: "administers", opts: ["administers", "admits", "diagnoses", "examines"] },
+  { q: "If someone is _______ to hospital, they are taken there for treatment.", correct: "admitted", opts: ["discharged", "admitted", "examined", "diagnosed"] },
+  { q: "When someone is _______ from hospital, they are officially allowed to leave.", correct: "discharged", opts: ["admitted", "diagnosed", "discharged", "administered"] }
+];
+
+function renderDefQuiz(){
+  const container = document.getElementById('defQuiz');
+  container.innerHTML = DEF_QUIZ.map((item, i) => `
+    <div class="quiz-card">
+      <div class="quiz-num">QUESTION ${i+1} OF ${DEF_QUIZ.length}</div>
+      <p class="quiz-q">${item.q}</p>
+      <div class="fb-choices">
+        ${item.opts.map(o => `<div class="fb-choice" data-correct="${o === item.correct}">${o}</div>`).join('')}
+      </div>
+      <div class="feedback"></div>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('.quiz-card').forEach(card => {
+    const fb = card.querySelector('.feedback');
+    card.querySelectorAll('.fb-choice').forEach(ch => {
+      ch.addEventListener('click', () => {
+        if(ch.dataset.correct === 'true'){
+          ch.classList.add('correct');
+          fb.textContent = '✅ Correct!';
+          fb.style.color = '#15803d';
+          speak(ch.textContent);
+        } else {
+          ch.classList.add('wrong');
+          fb.textContent = '❌ Incorrect. Try again.';
+          fb.style.color = 'var(--ielts-red)';
+          setTimeout(()=> ch.classList.remove('wrong'), 600);
+        }
+      });
+    });
+  });
+}
+
+/* ---------- QUIZ 2: COLOCACIONES ---------- */
+const COLL_QUIZ = [
+  { q: 'Food ______ can result in an enormous variety of different symptoms.', correct: 'allergies', opts: ['allergies', 'addictions', 'strokes', 'cancers'] },
+  { q: 'Paramedics are trained to ______ certain drugs.', correct: 'administer', opts: ['diagnose', 'administer', 'discharge', 'admit'] },
+  { q: 'She was ______ to hospital with a soaring temperature.', correct: 'admitted', opts: ['discharged', 'examined', 'admitted', 'diagnosed'] },
+  { q: 'Almost a million people are ______ with colon cancer each year.', correct: 'diagnosed', opts: ['administered', 'diagnosed', 'discharged', 'admitted'] },
+  { q: 'He has a broken nose but may be ______ today.', correct: 'discharged', opts: ['admitted', 'examined', 'diagnosed', 'discharged'] },
+  { q: 'The doctor ______ her carefully but found nothing wrong.', correct: 'examined', opts: ['administered', 'admitted', 'examined', 'discharged'] },
+  { q: 'The excessive consumption of sugar leads to ______.', correct: 'obesity', opts: ['dehydration', 'obesity', 'infection', 'addiction'] },
+  { q: 'Cholera causes severe ______.', correct: 'dehydration', opts: ['dehydration', 'obesity', 'allergy', 'stroke'] },
+  { q: 'Ear ______ are common in pre-school children.', correct: 'infections', opts: ['strokes', 'cancers', 'infections', 'addictions'] },
+  { q: 'He had a minor ______ in 1987, which left him partly paralyzed.', correct: 'stroke', opts: ['stroke', 'cancer', 'allergy', 'infection'] }
+];
+
+function renderCollQuiz(){
+  const container = document.getElementById('collQuiz');
+  container.innerHTML = COLL_QUIZ.map((item, i) => {
+    // Reemplazar el blank con un span resaltado
+    const qRendered = item.q.replace(/______/g, '<span class="blank">______</span>');
+    return `
+      <div class="quiz-card">
+        <div class="quiz-num">QUESTION ${i+1} OF ${COLL_QUIZ.length}</div>
+        <p class="quiz-q">${qRendered}</p>
+        <div class="fb-choices">
+          ${item.opts.map(o => `<div class="fb-choice" data-correct="${o === item.correct}">${o}</div>`).join('')}
+        </div>
+        <div class="feedback"></div>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.quiz-card').forEach(card => {
+    const fb = card.querySelector('.feedback');
+    card.querySelectorAll('.fb-choice').forEach(ch => {
+      ch.addEventListener('click', () => {
+        if(ch.dataset.correct === 'true'){
+          ch.classList.add('correct');
+          fb.textContent = '✅ Correct! Great collocation.';
+          fb.style.color = '#15803d';
+          speak(ch.textContent);
+        } else {
+          ch.classList.add('wrong');
+          fb.textContent = '❌ Incorrect. Review the example in the vocabulary bank.';
+          fb.style.color = 'var(--ielts-red)';
+          setTimeout(()=> ch.classList.remove('wrong'), 600);
+        }
+      });
+    });
+  });
+}
+
+/* ---------- SPEAKING: MICRÓFONO ---------- */
+const SpeechAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micBtn = document.getElementById('micBtn');
+
+if(SpeechAPI){
+  const rec = new SpeechAPI();
+  rec.lang = 'en-GB';
+  rec.continuous = false;
+  rec.interimResults = false;
+
+  micBtn.onclick = () => {
+    rec.start();
+    micBtn.classList.add('listening');
+    document.getElementById('transcript').textContent = '🎧 Listening to your monologue...';
+    document.getElementById('feedback').textContent = '';
+  };
+
+  rec.onresult = (e) => {
+    micBtn.classList.remove('listening');
+    const txt = e.results[0][0].transcript;
+    document.getElementById('transcript').textContent = `📝 "${txt}"`;
+
+    // Contar palabras de salud usadas
+    const used = VOCAB.filter(v => txt.toLowerCase().includes(v.word.toLowerCase())).map(v => v.word);
+    const fb = document.getElementById('feedback');
+    if(used.length > 0){
+      fb.textContent = `✅ You used: ${used.join(', ')}. Excellent lexical resource!`;
+      fb.style.color = '#15803d';
+    } else {
+      fb.textContent = '💡 Try to include at least 3 health words from the vocabulary bank.';
+      fb.style.color = 'var(--ielts-red)';
+    }
+  };
+
+  rec.onerror = () => {
+    micBtn.classList.remove('listening');
+    document.getElementById('feedback').textContent = '⚠️ Microphone error. Please check browser permissions.';
+    document.getElementById('feedback').style.color = 'var(--ielts-red)';
+  };
+} else {
+  document.getElementById('transcript').textContent = 'Voice recognition not supported. Use Google Chrome.';
+}
+
+/* ---------- INICIALIZACIÓN ---------- */
+renderVocab();
+renderDefQuiz();
+renderCollQuiz();
+</script>
+</body>
+</html>
